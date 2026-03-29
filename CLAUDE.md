@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 概述
 
-这是 `blue` 的 dotfiles 仓库，用于存放个人开发环境的配置文件。当前仅包含 Vim 配置 (`.vimrc`) 和 Claude Code 设置。
+这是 `blue` 的 dotfiles 仓库，用于存放个人开发环境的配置文件。当前包含 Vim、Claude Code、Ghostty 和 Zed 的配置。
 
 ## 关键文件
 
@@ -19,6 +19,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - 界面语言：中文
   - 启用自动记忆功能
   - 状态栏使用 rose-pine 主题
+
+- `ghostty/config` - Ghostty 终端配置
+  - 主题：Dracula
+  - 字体：CaskaydiaCove Nerd Font Mono，18px
+  - 光标：block 样式，闪烁
+  - 背景：玻璃模糊效果
+
+- `zed/settings.json` - Zed 编辑器配置
+  - Vim 模式已启用
+  - UI 字体：CaskaydiaCove Nerd Font，18px
+  - 缓冲区字体：Cascadia Code，16px
+  - 主题：Tokyo Night Storm
+  - Tab 大小：2 空格
+
+- `zed/keymap.json` - Zed 快捷键配置
 
 ## 架构说明
 
