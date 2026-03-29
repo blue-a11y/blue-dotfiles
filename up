@@ -1,0 +1,11 @@
+#!/bin/bash
+# 同步到远程仓库
+
+set -e
+
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    echo "Not a git repository. Run: git init"
+    exit 1
+fi
+
+git push -u origin $(git symbolic-ref --short HEAD)

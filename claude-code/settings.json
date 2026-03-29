@@ -1,0 +1,14 @@
+{
+	"env": {
+		"CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+	},
+	"permissions": {
+		"defaultMode": "default"
+	},
+	"language": "Chinese",
+	"autoMemoryEnabled": true,
+	"statusLine": {
+		"type": "command",
+		"command": "npx -y @owloops/claude-powerline@latest --style=capsule --theme=rose-pine"
+	}
+}
