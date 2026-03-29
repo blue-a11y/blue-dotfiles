@@ -7,6 +7,8 @@
 - `.vimrc` - Vim 配置
 - `up` / `down` - 快速同步脚本
 - `claude-code/settings.json` - Claude Code 配置
+- `ghostty/config` - Ghostty 终端配置
+- `zed/settings.json` / `zed/keymap.json` - Zed 编辑器配置
 
 ## 使用方法
 
