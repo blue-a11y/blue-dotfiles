@@ -1,18 +1,53 @@
 {
-  "lines": ["directory", "git", "model", "context", "block"],
-  "directory": {
-    "style": "basename"
-  },
-  "git": {
-    "showSha": true,
-    "showWorkingTree": true,
-    "showRepoName": true
-  },
-  "context": {
-    "showPercentageOnly": true,
-    "displayStyle": "percentage"
-  },
-  "block": {
-    "burnType": "tokens"
-  }
+	"theme": "rose-pine",
+	"display": {
+		"padding": 1,
+		"style": "capsule",
+		"charset": "unicode",
+		"autoWrap": false,
+		"lines": [
+			{
+				"segments": {
+					"directory": {
+						"enabled": true,
+						"style": "basename"
+					},
+					"git": {
+						"enabled": true,
+						"showSha": false,
+						"showWorkingTree": false,
+						"showRepoName": false,
+						"showOperation": false,
+						"showTag": false,
+						"showTimeSinceCommit": false,
+						"showStashCount": false,
+						"showUpstream": false
+					},
+					"model": {
+						"enabled": true
+					},
+					"context": {
+						"enabled": true,
+						"showPercentageOnly": true,
+						"displayStyle": "percentage"
+					}
+				}
+			},
+			{
+				"segments": {}
+			},
+			{
+				"segments": {
+					"block": {
+						"enabled": true,
+						"type": "tokens",
+						"burnType": "tokens"
+					}
+				}
+			}
+		]
+	},
+	"budget": {
+		"block": null
+	}
 }

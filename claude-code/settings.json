@@ -9,6 +9,6 @@
 	"autoMemoryEnabled": true,
 	"statusLine": {
 		"type": "command",
-		"command": "npx -y @owloops/claude-powerline@latest --style=capsule --theme=rose-pine --config=$HOME/.claude/.claude-powerline.json"
+		"command": "npx -y @owloops/claude-powerline@latest --style=capsule --config=$HOME/.claude/.claude-powerline.json"
 	}
 }
