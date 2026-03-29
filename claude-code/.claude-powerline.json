@@ -1,0 +1,18 @@
+{
+  "lines": ["directory", "git", "model", "context", "block"],
+  "directory": {
+    "style": "basename"
+  },
+  "git": {
+    "showSha": true,
+    "showWorkingTree": true,
+    "showRepoName": true
+  },
+  "context": {
+    "showPercentageOnly": true,
+    "displayStyle": "percentage"
+  },
+  "block": {
+    "burnType": "tokens"
+  }
+}
