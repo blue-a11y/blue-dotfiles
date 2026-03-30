@@ -1,14 +1,18 @@
 {
-	"env": {
-		"CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
-	},
-	"permissions": {
-		"defaultMode": "default"
-	},
-	"language": "Chinese",
-	"autoMemoryEnabled": true,
-	"statusLine": {
-		"type": "command",
-		"command": "npx -y @owloops/claude-powerline@latest --style=capsule --config=$HOME/.claude/.claude-powerline.json"
-	}
+  "env": {
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  },
+  "permissions": {
+    "defaultMode": "default"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y @owloops/claude-powerline@latest --style=capsule --config=$HOME/.claude/.claude-powerline.json"
+  },
+  "language": "Chinese",
+  "autoMemoryEnabled": true,
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true
+  },
+  "effortLevel": "medium"
 }
