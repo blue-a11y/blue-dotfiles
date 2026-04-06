@@ -13,3 +13,6 @@
 *.log
 
 .qoder
+# Environment variables
+.env
+.env.local
