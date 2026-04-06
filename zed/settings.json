@@ -57,5 +57,9 @@
   "base_keymap": "Cursor",
   "ui_font_size": 18.0,
   "buffer_font_size": 16.0,
-  "theme": "Tokyo Night Storm",
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Tokyo Night Storm"
+  },
 }
