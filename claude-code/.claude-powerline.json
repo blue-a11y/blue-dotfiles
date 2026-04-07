@@ -29,7 +29,7 @@
 					"context": {
 						"enabled": true,
 						"showPercentageOnly": true,
-						"displayStyle": "percentage"
+						"displayStyle": "ball"
 					}
 				}
 			},
@@ -40,8 +40,7 @@
 				"segments": {
 					"block": {
 						"enabled": true,
-						"type": "tokens",
-						"burnType": "tokens"
+						"type": "tokens"
 					}
 				}
 			}

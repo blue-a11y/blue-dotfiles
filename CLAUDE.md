@@ -4,37 +4,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 概述
 
-这是 `blue` 的 dotfiles 仓库，用于存放个人开发环境的配置文件。当前包含 Vim、Claude Code、Ghostty 和 Zed 的配置。
+这是 `blue` 的 dotfiles 仓库，用于存放个人开发环境的配置文件。这是一个纯配置文件仓库，不涉及构建、测试或部署。
 
-## 关键文件
+## 工作流程
 
-- `.vimrc` - Vim 编辑器配置
-  - 2 空格缩进（Tab 转空格）
-  - 鼠标支持已启用
-  - macOS 剪贴板同步
-  - 中文界面
-  - 搜索高亮和增量搜索
+- `./up.sh` — 自动生成 commit message（调用 `claude` CLI 解读 diff），提交并推送到远程
+- `./down.sh` — 从远程拉取最新配置
+- 配置通过 symlink 链接到目标位置（如 `~/.vimrc`）
 
-- `claude-code/settings.json` - Claude Code CLI 配置
-  - 界面语言：中文
-  - 启用自动记忆功能
-  - 状态栏使用 rose-pine 主题
+## 配置模块
 
-- `ghostty/config` - Ghostty 终端配置
-  - 主题：Dracula
-  - 字体：CaskaydiaCove Nerd Font Mono，18px
-  - 光标：block 样式，闪烁
-  - 背景：玻璃模糊效果
+### Vim (`.vimrc`)
+轻量级 Vim 配置，2 空格缩进，macOS 剪贴板同步，中文友好搜索（ignorecase + smartcase）。
 
-- `zed/settings.json` - Zed 编辑器配置
-  - Vim 模式已启用
-  - UI 字体：CaskaydiaCove Nerd Font，18px
-  - 缓冲区字体：Cascadia Code，16px
-  - 主题：Tokyo Night Storm
-  - Tab 大小：2 空格
+### Neovim (`nvim/`)
+基于 [LazyVim](https://github.com/LazyVim/LazyVim) 框架，使用 lazy.nvim 插件管理器。
+- 入口：`nvim/init.lua` → `lua/config/lazy.lua`
+- 自定义插件：`lua/plugins/` 下按功能分文件（lualine、neo-tree、example）
+- 启用的 LazyVim extras：`neo-tree`、`mini-animate`
+- 代码格式化：`stylua.toml`
 
-- `zed/keymap.json` - Zed 快捷键配置
+### Claude Code (`claude-code/settings.json`)
+界面语言中文，自动记忆已开启，状态栏使用 `@owloops/claude-powerline`（rose-pine 主题），默认模型 `opus[1m]`，中等 effort level。
 
-## 架构说明
+### Ghostty (`ghostty/config`)
+Dracula 主题，CaskaydiaCove Nerd Font Mono 18px，macOS 玻璃模糊背景效果。
 
-这是一个纯配置文件仓库，不涉及应用程序构建、测试或部署。工作流程为：将配置文件 symlink 到目标位置（如 `~/.vimrc`）。
+### Zed (`zed/settings.json` + `zed/keymap.json`)
+Vim 模式，Tokyo Night Storm 主题，2 空格缩进，Cascadia Code 字体族。
