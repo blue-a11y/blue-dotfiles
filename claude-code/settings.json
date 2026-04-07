@@ -9,10 +9,11 @@
     "type": "command",
     "command": "npx -y @owloops/claude-powerline@latest --style=capsule --config=$HOME/.claude/.claude-powerline.json"
   },
-  "language": "Chinese",
-  "autoMemoryEnabled": true,
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true
   },
-  "effortLevel": "medium"
+  "language": "Chinese",
+  "effortLevel": "medium",
+  "autoMemoryEnabled": true,
+  "model": "opus[1m]"
 }
