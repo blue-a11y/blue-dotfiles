@@ -5,16 +5,19 @@ set -e
 
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-declare -A TARGETS
-TARGETS=(
-  [vim]="$HOME/.vimrc:$REPO_DIR/.vimrc"
-  [ghostty]="$HOME/.config/ghostty/config:$REPO_DIR/ghostty/config"
-  [nvim]="$HOME/.config/nvim:$REPO_DIR/nvim"
-  [zed-settings]="$HOME/.config/zed/settings.json:$REPO_DIR/zed/settings.json"
-  [zed-keymap]="$HOME/.config/zed/keymap.json:$REPO_DIR/zed/keymap.json"
-  [claude-code]="$HOME/.claude/settings.json:$REPO_DIR/claude-code/settings.json"
-  [claude-powerline]="$HOME/.claude/.claude-powerline.json:$REPO_DIR/claude-code/.claude-powerline.json"
-)
+get_link() {
+  case "$1" in
+    vim)           echo "$HOME/.vimrc:$REPO_DIR/.vimrc" ;;
+    ghostty)       echo "$HOME/.config/ghostty/config:$REPO_DIR/ghostty/config" ;;
+    nvim)          echo "$HOME/.config/nvim:$REPO_DIR/nvim" ;;
+    zed-settings)  echo "$HOME/.config/zed/settings.json:$REPO_DIR/zed/settings.json" ;;
+    zed-keymap)    echo "$HOME/.config/zed/keymap.json:$REPO_DIR/zed/keymap.json" ;;
+    claude-code)   echo "$HOME/.claude/settings.json:$REPO_DIR/claude-code/settings.json" ;;
+    claude-powerline) echo "$HOME/.claude/.claude-powerline.json:$REPO_DIR/claude-code/.claude-powerline.json" ;;
+  esac
+}
+
+ALL_KEYS="vim ghostty nvim zed-settings zed-keymap claude-code claude-powerline"
 
 link() {
   local target="$1"
@@ -46,24 +49,23 @@ echo "请选择要链接的配置（多选用空格分隔，选 0 链接全部�
 echo ""
 PS3="输入编号: "
 
-select opt in "全部链接" "vim" "ghostty" "nvim" "zed-settings" "zed-keymap" "claude-code" "退出"; do
+select opt in "全部链接" "vim" "ghostty" "nvim" "zed-settings" "zed-keymap" "claude-code" "claude-powerline" "退出"; do
   case "$REPLY" in
     1)
       echo "==> 链接全部配置..."
-      for key in "${!TARGETS[@]}"; do
-        IFS=: read -r target source <<< "${TARGETS[$key]}"
+      for key in $ALL_KEYS; do
+        IFS=: read -r target source <<< "$(get_link "$key")"
         link "$target" "$source"
       done
       break
       ;;
-    [2-7])
-      local_key="$opt"
-      IFS=: read -r target source <<< "${TARGETS[$local_key]}"
-      echo "==> 链接 $local_key..."
+    [2-8])
+      IFS=: read -r target source <<< "$(get_link "$opt")"
+      echo "==> 链接 $opt..."
       link "$target" "$source"
       break
       ;;
-    8)
+    9)
       echo "退出"
       break
       ;;
