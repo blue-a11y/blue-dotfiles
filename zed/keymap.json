@@ -6,22 +6,35 @@
 // To see the default key bindings run `zed: open default keymap`
 // from the command palette.
 [
-	{
-		"context": "Workspace",
-		"bindings": {
-			// "shift shift": "file_finder::Toggle"
-		},
-	},
+	// {
+	// 	"context": "Workspace",
+	// 	"bindings": {
+	// 		"shift shift": "file_finder::Toggle"
+	// 	},
+	// },
 	{
 		"context": "Editor && vim_mode == insert",
 		"bindings": {
-			"cmd-s": "vim::NormalBefore",
+			"cmd-s": [
+				"action::Sequence",
+				[
+					["vim::SwitchToNormalMode", null],
+					["workspace::Save", {}],
+				],
+			],
 		},
 	},
 	{
 		"context": "ProjectPanel",
 		"bindings": {
 			"l": "project_panel::OpenPermanent",
+		},
+	},
+	{
+		"context": "Editor",
+		"bindings": {
+			"cmd-i": "editor::ShowCompletions",
+			"alt-p": "editor::Hover",
 		},
 	},
 ]

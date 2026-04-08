@@ -7,7 +7,10 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-	"restore_on_startup": "empty_tab",
+	"outline_panel": {
+  "dock": "left"
+ },
+ "restore_on_startup": "empty_tab",
  "agent": {
 		"dock": "right",
 		"favorite_models": [],
