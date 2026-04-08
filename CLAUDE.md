@@ -37,7 +37,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 代码格式化：`stylua.toml`
 
 ### Claude Code (`claude-code/`)
-- `settings.json`：界面中文，自动记忆，状态栏用 `@owloops/claude-powerline`（capsule 样式），默认模型 `opus[1m]`，中等 effort level，禁用非必要网络请求
+- `settings.json`：界面中文，自动记忆，状态栏用 `@owloops/claude-powerline`（capsule 样式），默认模型 `opus[1m]`，中等 effort level
 - `.claude-powerline.json`：powerline 主题配置
 
 ### Ghostty (`ghostty/config`)

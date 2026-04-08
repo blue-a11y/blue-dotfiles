@@ -38,7 +38,7 @@
 			},
 			{
 				"segments": {
-					"block": {
+					"today": {
 						"enabled": true,
 						"type": "tokens"
 					}
