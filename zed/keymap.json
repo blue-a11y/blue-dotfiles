@@ -25,7 +25,7 @@
 		},
 	},
 	{
-		"context": "ProjectPanel",
+		"context": "ProjectPanel && not_editing",
 		"bindings": {
 			"l": "project_panel::OpenPermanent",
 		},
@@ -35,6 +35,7 @@
 		"bindings": {
 			"cmd-i": "editor::ShowCompletions",
 			"alt-p": "editor::Hover",
+			"alt-shift-f": "editor::Format",
 		},
 	},
 ]

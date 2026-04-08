@@ -8,9 +8,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 工作流程
 
-- `./up.sh` — 自动生成 commit message（调用 `claude` CLI 解读 diff），提交并推送到远程
-- `./down.sh` — 从远程拉取最新配置
-- 配置通过 symlink 链接到目标位置（如 `~/.vimrc`）
+- `./link.sh` — 交互式选择并创建 symlink 到目标位置（首次设置用）。已有文件自动备份为 `.bak`，已正确链接的自动跳过
+- `./up.sh` — `git add -A`，通过 `claude` CLI 自动生成 commit message，提交并推送
+- `./down.sh` — `git pull` 拉取远程最新配置
+
+### Symlink 映射
+
+| 仓库路径 | 目标路径 |
+|---|---|
+| `.vimrc` | `~/.vimrc` |
+| `ghostty/config` | `~/.config/ghostty/config` |
+| `nvim/` | `~/.config/nvim` |
+| `zed/settings.json` | `~/.config/zed/settings.json` |
+| `zed/keymap.json` | `~/.config/zed/keymap.json` |
+| `claude-code/settings.json` | `~/.claude/settings.json` |
+| `claude-code/.claude-powerline.json` | `~/.claude/.claude-powerline.json` |
 
 ## 配置模块
 
@@ -24,8 +36,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 启用的 LazyVim extras：`neo-tree`、`mini-animate`
 - 代码格式化：`stylua.toml`
 
-### Claude Code (`claude-code/settings.json`)
-界面语言中文，自动记忆已开启，状态栏使用 `@owloops/claude-powerline`（rose-pine 主题），默认模型 `opus[1m]`，中等 effort level。
+### Claude Code (`claude-code/`)
+- `settings.json`：界面中文，自动记忆，状态栏用 `@owloops/claude-powerline`（capsule 样式），默认模型 `opus[1m]`，中等 effort level，禁用非必要网络请求
+- `.claude-powerline.json`：powerline 主题配置
 
 ### Ghostty (`ghostty/config`)
 Dracula 主题，CaskaydiaCove Nerd Font Mono 18px，macOS 玻璃模糊背景效果。
