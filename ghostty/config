@@ -3,10 +3,11 @@ theme = Dracula
 font-family = "CaskaydiaCove Nerd Font Mono"
 font-size = 18
 font-thicken = true
-font-synthetic-style = true
+font-synthetic-style = italic
+font-family-italic = true
 
 cursor-style = block
 cursor-style-blink = true
 
-background-opacity = 0.9
+background-opacity = 0.5
 background-blur = macos-glass-regular
