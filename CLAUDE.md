@@ -23,6 +23,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | `zed/keymap.json` | `~/.config/zed/keymap.json` |
 | `claude-code/settings.json` | `~/.claude/settings.json` |
 | `claude-code/.claude-powerline.json` | `~/.claude/.claude-powerline.json` |
+| `claude-code/CLAUDE.md` | `~/.claude/CLAUDE.md` |
 
 ## 配置模块
 
@@ -39,6 +40,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Claude Code (`claude-code/`)
 - `settings.json`：界面中文，自动记忆，状态栏用 `@owloops/claude-powerline`（capsule 样式），默认模型 `opus[1m]`，中等 effort level
 - `.claude-powerline.json`：powerline 主题配置
+- `CLAUDE.md`：全局指令（交互风格、编码规范、记忆规则等），应用于所有项目
 
 ### Ghostty (`ghostty/config`)
 Dracula 主题，CaskaydiaCove Nerd Font Mono 18px，macOS 玻璃模糊背景效果。

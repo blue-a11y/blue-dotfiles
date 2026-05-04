@@ -14,10 +14,11 @@ get_link() {
     zed-keymap)    echo "$HOME/.config/zed/keymap.json:$REPO_DIR/zed/keymap.json" ;;
     claude-code)   echo "$HOME/.claude/settings.json:$REPO_DIR/claude-code/settings.json" ;;
     claude-powerline) echo "$HOME/.claude/.claude-powerline.json:$REPO_DIR/claude-code/.claude-powerline.json" ;;
+    claude-md)      echo "$HOME/.claude/CLAUDE.md:$REPO_DIR/claude-code/CLAUDE.md" ;;
   esac
 }
 
-ALL_KEYS="vim ghostty nvim zed-settings zed-keymap claude-code claude-powerline"
+ALL_KEYS="vim ghostty nvim zed-settings zed-keymap claude-code claude-powerline claude-md"
 
 link() {
   local target="$1"
@@ -49,7 +50,7 @@ echo "请选择要链接的配置（多选用空格分隔，选 0 链接全部�
 echo ""
 PS3="输入编号: "
 
-select opt in "全部链接" "vim" "ghostty" "nvim" "zed-settings" "zed-keymap" "claude-code" "claude-powerline" "退出"; do
+select opt in "全部链接" "vim" "ghostty" "nvim" "zed-settings" "zed-keymap" "claude-code" "claude-powerline" "claude-md" "退出"; do
   case "$REPLY" in
     1)
       echo "==> 链接全部配置..."
@@ -59,13 +60,13 @@ select opt in "全部链接" "vim" "ghostty" "nvim" "zed-settings" "zed-keymap" 
       done
       break
       ;;
-    [2-8])
+    [2-9])
       IFS=: read -r target source <<< "$(get_link "$opt")"
       echo "==> 链接 $opt..."
       link "$target" "$source"
       break
       ;;
-    9)
+    10)
       echo "退出"
       break
       ;;
