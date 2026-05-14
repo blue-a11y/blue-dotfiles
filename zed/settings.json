@@ -7,6 +7,18 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "scrollbar": {
+    "git_diff": true
+  },
+  "vim": {
+    "cursor_shape": {
+      "normal": "block"
+    },
+    "toggle_relative_line_numbers": false
+  },
   "lsp": {
     "vtsls": {
       "settings": {
@@ -25,7 +37,15 @@
     }
   },
   "git_panel": {
-    "sort_by_path": false,
+    "dock": "left",
+    "scrollbar": {
+      "show": "auto"
+    },
+    "collapse_untracked_diff": false,
+    "status_style": "label_color",
+    "default_width": 370.0,
+    "diff_stats": true,
+    "sort_by_path": true,
     "tree_view": true
   },
   "jsx_tag_auto_close": {
@@ -60,16 +80,20 @@
     "git_status": true,
   },
   "title_bar": {
+    "show_branch_status_icon": true,
     "show_menus": true,
-    "show_branch_icon": true,
   },
   "language_models": {
-    "openai_compatible": {},
+    "openai_compatible": {
+      
+    },
   },
   "edit_predictions": {
     "provider": "zed",
     "open_ai_compatible_api": {
-      "prompt_format": "glm"
+      "model": "",
+      "api_url": "",
+      "prompt_format": "infer"
     },
   },
   "outline_panel": {
@@ -78,10 +102,10 @@
   "restore_on_startup": "empty_tab",
   "agent": {
     "show_turn_stats": true,
-    "play_sound_when_agent_done": true,
+    "play_sound_when_agent_done": "always",
     "default_model": {
-      "provider": "GLM",
-      "model": "glm-5.1",
+      "provider": "MiniMax",
+      "model": "MiniMax-2.7-highspeed",
       "enable_thinking": false,
     },
     "dock": "right",
@@ -145,6 +169,6 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Dracula",
+    "dark": "Dracula Solid",
   },
 }
