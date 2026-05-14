@@ -14,5 +14,8 @@
 .env
 .env.local
 
+# Sensitive config (contains API keys)
+claude-code/settings.json
+
 # Editor project dirs
 .zed

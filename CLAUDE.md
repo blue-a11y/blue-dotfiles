@@ -21,7 +21,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | `nvim/` | `~/.config/nvim` |
 | `zed/settings.json` | `~/.config/zed/settings.json` |
 | `zed/keymap.json` | `~/.config/zed/keymap.json` |
-| `claude-code/settings.json` | `~/.claude/settings.json` |
 | `claude-code/.claude-powerline.json` | `~/.claude/.claude-powerline.json` |
 | `claude-code/CLAUDE.md` | `~/.claude/CLAUDE.md` |
 
