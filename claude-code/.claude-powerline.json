@@ -1,52 +1,119 @@
 {
-	"theme": "tokyo-night",
-	"display": {
-		"padding": 1,
-		"style": "capsule",
-		"charset": "unicode",
-		"autoWrap": false,
-		"lines": [
-			{
-				"segments": {
-					"directory": {
-						"enabled": true,
-						"style": "basename"
-					},
-					"git": {
-						"enabled": true,
-						"showSha": false,
-						"showWorkingTree": false,
-						"showRepoName": false,
-						"showOperation": false,
-						"showTag": false,
-						"showTimeSinceCommit": false,
-						"showStashCount": false,
-						"showUpstream": false
-					},
-					"model": {
-						"enabled": true
-					},
-					"context": {
-						"enabled": true,
-						"showPercentageOnly": true,
-						"displayStyle": "ball"
-					}
-				}
-			},
-			{
-				"segments": {}
-			},
-			{
-				"segments": {
-					"today": {
-						"enabled": true,
-						"type": "tokens"
-					}
-				}
-			}
-		]
-	},
-	"budget": {
-		"block": null
-	}
+  "theme": "rose-pine",
+  "display": {
+    "style": "powerline",
+    "charset": "unicode",
+    "colorCompatibility": "auto",
+    "autoWrap": true,
+    "padding": 1,
+    "lines": [
+      {
+        "segments": {
+          "version": {
+            "enabled": true
+          },
+          "directory": {
+            "enabled": true,
+            "style": "basename"
+          },
+          "git": {
+            "enabled": true,
+            "showSha": false,
+            "showWorkingTree": false,
+            "showOperation": false,
+            "showTag": false,
+            "showTimeSinceCommit": false,
+            "showStashCount": false,
+            "showUpstream": false,
+            "showRepoName": false,
+            "showAheadBehind": true
+          },
+          "model": {
+            "enabled": true
+          },
+          "context": {
+            "enabled": true,
+            "showPercentageOnly": false,
+            "displayStyle": "ball",
+            "autocompactBuffer": 33000,
+            "percentageMode": "used"
+          },
+          "today": {
+            "enabled": false,
+            "type": "tokens"
+          },
+          "tmux": {
+            "enabled": false
+          },
+          "session": {
+            "enabled": false,
+            "type": "tokens",
+            "costSource": "calculated",
+            "showIcon": true
+          },
+          "agent": {
+            "enabled": false,
+            "showLabel": true,
+            "showIcon": true
+          },
+          "thinking": {
+            "enabled": false,
+            "showEnabled": true,
+            "showEffort": true
+          },
+          "block": {
+            "enabled": false,
+            "type": "cost",
+            "burnType": "cost",
+            "displayStyle": "text"
+          },
+          "weekly": {
+            "enabled": false,
+            "displayStyle": "text"
+          },
+          "sessionId": {
+            "enabled": false,
+            "showIdLabel": true
+          },
+          "metrics": {
+            "enabled": false,
+            "showResponseTime": true,
+            "showLastResponseTime": true,
+            "showDuration": true,
+            "showMessageCount": true,
+            "showLinesAdded": true,
+            "showLinesRemoved": true
+          },
+          "cacheTimer": {
+            "enabled": false
+          },
+          "env": {
+            "enabled": false,
+            "variable": "PAHTH",
+            "showIcon": true,
+            "prefix": ""
+          }
+        }
+      }
+    ],
+    "showIcons": true
+  },
+  "budget": {
+    "session": {
+      "warningThreshold": 80
+    },
+    "today": {
+      "warningThreshold": 80,
+      "amount": 50
+    },
+    "block": {
+      "warningThreshold": 80,
+      "amount": 15
+    }
+  },
+  "modelContextLimits": {
+    "default": 200000,
+    "sonnet": 200000,
+    "opus": 200000
+  }
 }
