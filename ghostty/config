@@ -11,3 +11,5 @@ cursor-style-blink = true
 
 background-opacity = 0.5
 background-blur = macos-glass-regular
+
+macos-titlebar-style = tabs
