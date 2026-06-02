@@ -64,7 +64,7 @@
   "sticky_scroll": {
     "enabled": true,
   },
-  "diff_view_style": "unified",
+  "diff_view_style": "split",
   "git": {
     "inline_blame": {
       "show_commit_summary": true,
@@ -85,15 +85,35 @@
   },
   "language_models": {
     "openai_compatible": {
-      
+      "MiniMax": {
+        "api_url": "https://api.minimaxi.com/v1",
+        "available_models": [
+          {
+            "name": "MiniMax-Text-01",
+            "display_name": "MiniMax Text-01",
+            "max_tokens": 1000000,
+          },
+          {
+            "name": "MiniMax-M2.7",
+            "display_name": "MiniMax M2.7",
+            "max_tokens": 131072,
+          },
+          {
+            "name": "MiniMax-M2.7-highspeed",
+            "display_name": "MiniMax M2.7 Highspeed",
+            "max_tokens": 131072,
+          },
+        ],
+      },
     },
   },
   "edit_predictions": {
-    "provider": "zed",
-    "open_ai_compatible_api": {
-      "model": "",
-      "api_url": "",
-      "prompt_format": "infer"
+    "provider": "ollama",
+    "ollama": {
+      "api_url": "http://localhost:11434",
+      "model": "qwen2.5-coder:7b-base",
+      "prompt_format": "infer",
+      "max_output_tokens": 512
     },
   },
   "outline_panel": {
@@ -105,8 +125,7 @@
     "play_sound_when_agent_done": "always",
     "default_model": {
       "provider": "MiniMax",
-      "model": "MiniMax-2.7-highspeed",
-      "enable_thinking": false,
+      "model": "MiniMax-M2.7-highspeed",
     },
     "dock": "right",
     "favorite_models": [],
