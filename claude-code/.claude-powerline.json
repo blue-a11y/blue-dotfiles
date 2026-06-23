@@ -1,7 +1,7 @@
 {
-  "theme": "rose-pine",
+  "theme": "tokyo-night",
   "display": {
-    "style": "powerline",
+    "style": "tui",
     "charset": "unicode",
     "colorCompatibility": "auto",
     "autoWrap": true,
@@ -9,12 +9,9 @@
     "lines": [
       {
         "segments": {
-          "version": {
-            "enabled": true
-          },
           "directory": {
             "enabled": true,
-            "style": "basename"
+            "style": "full"
           },
           "git": {
             "enabled": true,
@@ -25,41 +22,21 @@
             "showTimeSinceCommit": false,
             "showStashCount": false,
             "showUpstream": false,
-            "showRepoName": false,
-            "showAheadBehind": true
+            "showRepoName": false
           },
           "model": {
             "enabled": true
           },
-          "context": {
-            "enabled": true,
-            "showPercentageOnly": false,
-            "displayStyle": "ball",
-            "autocompactBuffer": 33000,
-            "percentageMode": "used"
-          },
-          "today": {
-            "enabled": false,
-            "type": "tokens"
-          },
-          "tmux": {
-            "enabled": false
-          },
           "session": {
-            "enabled": false,
+            "enabled": true,
             "type": "tokens",
             "costSource": "calculated",
-            "showIcon": true
+            "showUnits": true
           },
-          "agent": {
-            "enabled": false,
-            "showLabel": true,
-            "showIcon": true
-          },
-          "thinking": {
-            "enabled": false,
-            "showEnabled": true,
-            "showEffort": true
+          "today": {
+            "enabled": true,
+            "type": "tokens",
+            "showUnits": true
           },
           "block": {
             "enabled": false,
@@ -71,9 +48,21 @@
             "enabled": false,
             "displayStyle": "text"
           },
+          "version": {
+            "enabled": false
+          },
+          "tmux": {
+            "enabled": false
+          },
           "sessionId": {
             "enabled": false,
             "showIdLabel": true
+          },
+          "context": {
+            "enabled": true,
+            "showPercentageOnly": false,
+            "displayStyle": "text",
+            "autocompactBuffer": 33000
           },
           "metrics": {
             "enabled": false,
@@ -84,19 +73,90 @@
             "showLinesAdded": true,
             "showLinesRemoved": true
           },
+          "agent": {
+            "enabled": true,
+            "showLabel": false
+          },
+          "thinking": {
+            "enabled": false,
+            "showEnabled": true,
+            "showEffort": true
+          },
           "cacheTimer": {
             "enabled": false
-          },
-          "env": {
-            "enabled": false,
-            "variable": "PAHTH",
-            "showIcon": true,
-            "prefix": ""
           }
         }
       }
     ],
-    "showIcons": true
+    "showIcons": true,
+    "tui": {
+      "fitContent": true,
+      "minWidth": 60,
+      "padding": {
+        "horizontal": 1
+      },
+      "separator": {
+        "column": ""
+      },
+      "title": {
+        "left": "{model}",
+        "right": "{thinking.icon} · {thinking.effort}"
+      },
+      "breakpoints": [
+        {
+          "minWidth": 0,
+          "areas": [
+            "git.icon   git.headVal      .            git.working",
+            "---",
+            "context.icon  context.bar  context.pct  context.tokens",
+            "---",
+            "session.tokens session.tokens agent version"
+          ],
+          "columns": [
+            "auto",
+            "1fr",
+            "auto",
+            "auto"
+          ],
+          "align": [
+            "left",
+            "left",
+            "right",
+            "right"
+          ]
+        }
+      ],
+      "segments": {
+        "session": {
+          "items": [
+            "{icon}",
+            "{label}",
+            "{cost}",
+            "{tokens}",
+            "{budget}"
+          ]
+        },
+        "today": {
+          "items": [
+            "{icon}",
+            "{cost}",
+            "{label}",
+            "{budget}"
+          ]
+        },
+        "session.tokens": {
+          "items": [
+            "{icon}",
+            "{label}",
+            "{tokens}"
+          ]
+        }
+      },
+      "footer": {
+        "left": "{dir}",
+        "right": ""
+      }
+    }
   },
   "budget": {
     "session": {
