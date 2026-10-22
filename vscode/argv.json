@@ -1,0 +1,6 @@
+// Portable runtime arguments: merge these keys into ~/.vscode/argv.json.
+// Keep each machine's existing crash-reporter-id; do not symlink this template.
+{
+  "enable-crash-reporter": true,
+  "locale": "zh-cn"
+}

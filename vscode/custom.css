@@ -1,0 +1,18 @@
+/* VSCode 界面字体：CaskaydiaCove Nerd Font Mono */
+/* 字体栈里带上 codicon：图标字符（私有区编码）在文本字体里不存在，会自动回退到图标字体渲染 */
+.monaco-workbench,
+.monaco-workbench * {
+  font-family: "CaskaydiaCove Nerd Font Mono", codicon, "PingFang SC", sans-serif !important;
+}
+
+/* 还原代码编辑器字体（由 settings.json 的 editor.fontFamily 控制） */
+.monaco-workbench .monaco-editor,
+.monaco-workbench .monaco-editor * {
+  font-family: inherit;
+}
+
+/* 还原集成终端字体（由 terminal.integrated.fontFamily 控制） */
+.monaco-workbench .xterm,
+.monaco-workbench .xterm * {
+  font-family: inherit;
+}

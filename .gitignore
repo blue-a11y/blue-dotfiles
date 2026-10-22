@@ -1,21 +1,21 @@
-# macOS
+# Local/generated state is never part of the public configuration.
 .DS_Store
-
-# Editor
+*.bak
 *.swp
 *.swo
-*~
-
-# Logs
 *.log
-
-.qoder
-# Environment variables
 .env
-.env.local
+.env.*
+__pycache__/
+.superpowers/
+work/
+outputs/
 
-# Sensitive config (contains API keys)
-claude-code/settings.json
-
-# Editor project dirs
-.zed
+# Application runtime data and installed extension packages.
+**/globalStorage/
+**/workspaceStorage/
+**/History/
+**/node_modules/
+**/prompts-library-db*/
+**/prompts-library-db.*/
+**/settings_backup.json

@@ -7,8 +7,25 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  // Restore the extensions captured in extensions.json. Versions follow the Zed registry.
+  "auto_install_extensions": {
+    "catppuccin-icons": true,
+    "css-modules-kit": true,
+    "dracula": true,
+    "git-firefly": true,
+    "html": true,
+    "less": true,
+    "lua": true,
+    "markdown-oxide": true,
+    "material-icon-theme": true,
+    "scss": true
+  },
+  "which_key": {
+    "enabled": false
+  },
+  "cli_default_open_behavior": "new_window",
   "collaboration_panel": {
-    "dock": "left"
+    "dock": "right"
   },
   "scrollbar": {
     "git_diff": true
@@ -37,6 +54,8 @@
     }
   },
   "git_panel": {
+    "group_by": "status",
+    "sort_by": "path",
     "dock": "left",
     "scrollbar": {
       "show": "auto"
@@ -46,42 +65,44 @@
     "default_width": 370.0,
     "diff_stats": true,
     "sort_by_path": true,
-    "tree_view": true
+    "tree_view": false
   },
   "jsx_tag_auto_close": {
-    "enabled": false,
+    "enabled": true
   },
   "toolbar": {
-    "code_actions": true,
+    "code_actions": true
   },
   "minimap": {
     "thumb": "always",
-    "show": "never",
+    "show": "never"
   },
   "auto_signature_help": false,
   "show_signature_help_after_edits": true,
   "autoscroll_on_clicks": false,
   "sticky_scroll": {
-    "enabled": true,
+    "enabled": true
   },
   "diff_view_style": "split",
   "git": {
     "inline_blame": {
-      "show_commit_summary": true,
-    },
+      "show_commit_summary": true
+    }
   },
   "tab_bar": {
-    "show_pinned_tabs_in_separate_row": true,
+    "show_pinned_tabs_in_separate_row": true
   },
   "tabs": {
     "show_close_button": "always",
     "show_diagnostics": "all",
     "file_icons": true,
-    "git_status": true,
+    "git_status": true
   },
   "title_bar": {
+    "show_project_items": true,
+    "show_branch_name": true,
     "show_branch_status_icon": true,
-    "show_menus": true,
+    "show_menus": true
   },
   "language_models": {
     "openai_compatible": {
@@ -91,21 +112,21 @@
           {
             "name": "MiniMax-Text-01",
             "display_name": "MiniMax Text-01",
-            "max_tokens": 1000000,
+            "max_tokens": 1000000
           },
           {
             "name": "MiniMax-M2.7",
             "display_name": "MiniMax M2.7",
-            "max_tokens": 131072,
+            "max_tokens": 131072
           },
           {
             "name": "MiniMax-M2.7-highspeed",
             "display_name": "MiniMax M2.7 Highspeed",
-            "max_tokens": 131072,
-          },
-        ],
-      },
-    },
+            "max_tokens": 131072
+          }
+        ]
+      }
+    }
   },
   "edit_predictions": {
     "provider": "ollama",
@@ -114,22 +135,24 @@
       "model": "qwen2.5-coder:7b-base",
       "prompt_format": "infer",
       "max_output_tokens": 512
-    },
+    }
   },
   "outline_panel": {
-    "dock": "left",
+    "dock": "left"
   },
-  "restore_on_startup": "empty_tab",
+  "restore_on_startup": "launchpad",
   "agent": {
+    "button": false,
+    "sidebar_side": "right",
     "show_turn_stats": true,
     "play_sound_when_agent_done": "always",
     "default_model": {
       "provider": "MiniMax",
-      "model": "MiniMax-M2.7-highspeed",
+      "model": "MiniMax-M2.7-highspeed"
     },
-    "dock": "right",
+    "dock": "left",
     "favorite_models": [],
-    "model_parameters": [],
+    "model_parameters": []
   },
   "ui_font_weight": 500.0,
   "ui_font_family": "CaskaydiaCove Nerd Font",
@@ -138,27 +161,27 @@
   "icon_theme": {
     "mode": "light",
     "light": "Material Icon Theme",
-    "dark": "Material Icon Theme",
+    "dark": "Material Icon Theme"
   },
   "agent_servers": {
     "claude-acp": {
-      "type": "registry",
+      "type": "registry"
     },
     "gemini": {
-      "type": "registry",
+      "type": "registry"
     },
     "codex-acp": {
-      "type": "registry",
-    },
+      "type": "registry"
+    }
   },
   "session": {
-    "trust_all_worktrees": true,
+    "trust_all_worktrees": true
   },
   "vim_mode": true,
   "terminal": {
     "font_family": "CaskaydiaCove Nerd Font",
     "toolbar": {
-      "breadcrumbs": false,
+      "breadcrumbs": false
     },
     "default_height": 330.0,
     "font_weight": 400.0,
@@ -166,12 +189,13 @@
     "blinking": "on",
     "max_scroll_history_lines": 3000,
     "font_features": {
-      "calt": true,
-    },
+      "calt": true
+    }
   },
   "project_panel": {
     "dock": "right",
     "auto_fold_dirs": false,
+    "default_width": 400
   },
   "cursor_blink": true,
   "when_closing_with_no_tabs": "close_window",
@@ -188,6 +212,9 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Dracula Solid",
+    "dark": "Dracula"
   },
+  "indent_guides": {
+    "coloring": "indent_aware"
+  }
 }

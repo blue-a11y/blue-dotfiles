@@ -1,0 +1,24 @@
+#!/bin/bash
+set -euo pipefail
+
+MACISM_BIN="${DOTFILES_MACISM_BIN:-}"
+if [ -z "$MACISM_BIN" ]; then
+  MACISM_BIN="$(command -v macism || true)"
+fi
+if [ -z "$MACISM_BIN" ]; then
+  for candidate in /opt/homebrew/bin/macism /usr/local/bin/macism; do
+    if [ -f "$candidate" ] && [ -x "$candidate" ]; then
+      MACISM_BIN="$candidate"
+      break
+    fi
+  done
+fi
+if [ ! -f "$MACISM_BIN" ] || [ ! -x "$MACISM_BIN" ]; then
+  printf 'macism not found. Install it or set DOTFILES_MACISM_BIN to its executable.\n' >&2
+  exit 1
+fi
+
+if [ "${1:-}" = --current ]; then
+  exec "$MACISM_BIN"
+fi
+exec "$MACISM_BIN" com.apple.keylayout.ABC

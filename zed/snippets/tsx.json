@@ -1,0 +1,82 @@
+{
+  "React Functional Component with TypeScript": {
+    "prefix": "funcc",
+    "body": [
+      "import { useEffect } from 'react';",
+      "",
+      "type IProps = {",
+      "  // 定义你的 props",
+      "}",
+      "",
+      "const ${1:ComponentName} = ({}: IProps) => {",
+      "  useEffect(() => {}, [])",
+      "",
+      "  return (",
+      "    <div>${1:ComponentName}</div>",
+      "  );",
+      "};",
+      "",
+      "export default ${1:ComponentName};"
+    ],
+    "description": "创建一个带有 TypeScript 的 React 函数组件"
+  },
+  "React Component with SCSS Modules": {
+    "prefix": "rcomp",
+    "body": [
+      "import styles from './index.module.scss';",
+      "",
+      "interface ${1:ComponentName}Props {",
+      "  ${2:prop}?: ${3:string};",
+      "}",
+      "",
+      "export default function ${1:ComponentName}({ ${2:prop} }: ${1:ComponentName}Props) {",
+      "  return (",
+      "    <div className={styles.container}>",
+      "      ${4:content}",
+      "    </div>",
+      "  );",
+      "}"
+    ],
+    "description": "React 组件，带 SCSS Modules"
+  },
+  "useState Hook": {
+    "prefix": "ustate",
+    "body": [
+      "const [${1:state}, set${1/(.*)/${1:/capitalize}/}] = useState${2:<${3:string}>}(${4:initialValue});"
+    ]
+  },
+  "useEffect Hook": {
+    "prefix": "ueffect",
+    "body": [
+      "useEffect(() => {",
+      "  ${1:// effect logic}",
+      "",
+      "  return () => {",
+      "    ${2:// cleanup}",
+      "  };",
+      "}, [${3:dependencies}]);"
+    ]
+  },
+  "useCallback Hook": {
+    "prefix": "ucallback",
+    "body": [
+      "const ${1:handler} = useCallback((${2:args}) => {",
+      "  ${3:// handler logic}",
+      "}, [${4:dependencies}]);"
+    ]
+  },
+  "useMemo Hook": {
+    "prefix": "umemo",
+    "body": [
+      "const ${1:value} = useMemo(() => {",
+      "  return ${2:computation};",
+      "}, [${3:dependencies}]);"
+    ]
+  },
+  "useRef Hook": {
+    "prefix": "uref",
+    "body": [
+      "const ${1:refName} = useRef${2:<${3:HTMLDivElement}>}(${4:null});"
+    ]
+  }
+}

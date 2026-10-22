@@ -1,0 +1,15 @@
+{
+  "Console Log": {
+    "prefix": "cl",
+    "body": [
+      "console.log('${1:label}:', ${2:value});"
+    ]
+  },
+  "Console Log Variable": {
+    "prefix": "logg",
+    "body": [
+      "console.log('${1:variable}===>', ${1:variable});"
+    ],
+    "description": "快速插入 console.log"
+  }
+}

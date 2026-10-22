@@ -1,170 +1,143 @@
 # blue-dotfiles
 
-> [!NOTE]
-> Work in progress — 持续迭代中的个人开发环境配置
+blue 的 macOS 编辑器与终端配置。维护 Ghostty、VS Code、Zed、Neovim 和 Vim，两台电脑通过各自的软链和同一 Git 分支双向同步。
 
-一套面向 macOS 的终端 / 编辑器 / AI 工具链配置，追求开箱即用、统一美学。
+## 同步范围
 
-## 快速开始
+| 目录 | 内容 |
+| --- | --- |
+| `ghostty/` | Ghostty 主配置：Dracula、字体、光标、透明度、窗口和滚动设置 |
+| `vscode/` | 设置、快捷键、2 份代码片段、语言、自定义 CSS、输入法辅助脚本、运行参数模板、52 个扩展及版本 |
+| `zed/` | 设置、快捷键、3 份代码片段、3 个本地主题、10 个扩展及版本 |
+| `nvim/` | 当前 LazyVim 配置、插件定义、快捷键、Neovide 设置和 `lazy-lock.json` |
+| `vim/` | 独立 Vim 配置 |
+
+配置是个人偏好的快照；不会为了更新说明而主动升级编辑器、修改主题或升级插件。
+
+账号凭据、登录状态、聊天与工作区数据库、缓存、安装后的扩展包、旧配置备份不进入仓库。VS Code 当前没有额外用户 Profile，MCP 文件为空，因此没有额外的有效配置可收集。Zed 的提示词数据库属于本地数据，未作为代码片段同步。
+
+## 链接配置
 
 ```bash
-git clone https://github.com/user/blue-dotfiles.git
+git clone https://github.com/blue-a11y/blue-dotfiles.git
 cd blue-dotfiles
-./link.sh   # 交互式选择并创建 symlink
+
+# 只预览，不修改本机文件。
+./link.sh
+
+# 也可以只处理一部分应用。
+./link.sh vscode zed
+
+# 确认预览后，备份已有目标并创建软链。
+./link.sh --apply
+# ./link.sh --apply ghostty vscode zed nvim vim
 ```
 
-`link.sh` 会提示你选择要链接的配置。已存在的文件自动备份为 `.bak`，已正确链接的自动跳过。
+支持 macOS 自带的 Bash 3.2，无额外脚本依赖。`neovim` 是 `nvim` 的别名。`--home /absolute/path` 可将目标指向测试目录；默认目标为当前用户的 `$HOME`。
 
-日常同步：
+[`links.tsv`](links.tsv) 是唯一的链接映射。每次执行会先检查全部选中源文件；已有的正确软链会跳过（包括通过父目录软链到位的情况）。脚本拒绝会移动或改写仓库源文件的目标；普通文件、目录、硬链接和旧软链会移动到独立备份目录，再创建新链接：
+
+```text
+~/.local/state/blue-dotfiles/backups/<timestamp>.<random>/
+```
+
+备份保留原来的相对路径，重复执行不会覆盖旧备份。如需撤回，先关闭对应应用，核对并删除本次创建的目标软链，再把备份中的原文件或目录移回原位置。发生错误时先查看已输出的链接与备份路径；脚本不会自动撤回前面已经完成的链接。
+
+链接后，在应用内修改受管理的配置也会修改仓库。提交前检查差异和私密信息；`link.sh` 本身不执行 Git 提交或推送。
+
+## 两台电脑双向同步
+
+每台电脑各自克隆仓库，应用配置链接到各自的本地副本。两边跟踪同一个远程分支，例如 `origin/main`。仓库在两台电脑上的绝对路径、用户名可以不同；创建软链时使用各自的路径。
+
+首次使用时，先将重建后的仓库发布到共享分支，再在每台电脑的仓库目录运行：
 
 ```bash
-./up.sh    # git add -A → claude 自动生成 commit message → push
-./down.sh  # git pull 拉取远程最新配置
+./link.sh           # 核对目标
+./link.sh --apply   # 备份原配置并接入本机应用
+./sync.sh status    # 检查分支和本地改动
 ```
 
-## 配置一览
+日常两边都用同一个命令：
 
-| 模块 | 目标路径 | 主题 | 字体 |
-|---|---|---|---|
-| Vim | `~/.vimrc` | — | — |
-| Neovim | `~/.config/nvim` | LazyVim 默认 | — |
-| Ghostty | `~/.config/ghostty/config` | Dracula | CaskaydiaCove Nerd Font Mono 18px |
-| Zed | `~/.config/zed/` | Dracula (dark) | CaskaydiaCove Nerd Font 16px |
-| Claude Code | `~/.claude/` | Rose Pine powerline | — |
-
----
-
-## Vim (`/.vimrc`)
-
-<p align="center"><img src="screenshots/vim.png" width="700" alt="Vim screenshot"></p>
-
-轻量级 Vim 配置，零插件依赖，适合快速编辑场景。
-
-**核心特性：**
-- 2 空格缩进，Tab 自动转空格
-- macOS 剪贴板同步 — `y` / `p` 直接与系统剪贴板交互
-- 中文友好搜索 — 默认忽略大小写，输入大写字母时自动切换为精确匹配
-- 行号显示 + 滚动时保留 8 行上下文视野
-
-**视觉效果：** 语法高亮 + 底部状态栏（始终显示文件信息）
-
----
-
-## Neovim (`/nvim/`)
-
-<p align="center"><img src="screenshots/nvim.png" width="700" alt="Neovim screenshot"></p>
-
-基于 [LazyVim](https://github.com/LazyVim/LazyVim) 框架的完整 IDE 体验。
-
-**目录结构：**
-```
-nvim/
-├── init.lua              # 入口
-├── lua/config/
-│   ├── lazy.lua          # lazy.nvim 引导
-│   ├── options.lua       # 编辑器选项
-│   ├── keymaps.lua       # 快捷键
-│   └── autocmds.lua      # 自动命令
-├── lua/plugins/
-│   ├── lualine.lua       # 状态栏
-│   └── neo-tree.lua      # 文件树
-└── stylua.toml           # Lua 格式化规则
+```bash
+./sync.sh sync
 ```
 
-**启用的 LazyVim extras：** `neo-tree`（文件浏览器）、`mini-animate`（流畅动画）
+命令会检查本地状态，获取当前跟踪的远程分支，把本机受管理配置的修改提交到 Git，合并远程更新，最后正常推送。获取远程后和推送前会再次核验配置链接与当前文件。两台电脑的流程对称：在 A 修改后同步，在 B 同步即可收到；B 的修改也按同样方式传回 A。开始编辑前和编辑完成后各执行一次，可减少两边同时修改同一内容的机会。
 
----
+同步由手动运行命令触发。`./sync.sh` 不带参数默认查看状态，只有明确使用 `sync` 才会提交、合并与推送。它保留 Git hooks，不使用强推，也不重置或清理工作区。
 
-## Ghostty (`/ghostty/config`)
+遇到以下情况会停止并保留现场：
 
-<p align="center"><img src="screenshots/ghostty.png" width="700" alt="Ghostty screenshot"></p>
+- 已暂存但未提交的修改、未完成的 merge/rebase，或分支没有正确的远程跟踪关系。
+- 本机配置没有接入这份仓库，或应用保存时替换了文件软链。先对比并保留本机文件中的新修改，再重新建立链接；同步不会静默忽略或覆盖它。
+- 同步范围外的新增或修改文件，常见凭据字段，或写死用户名的配置路径。私密字段检查覆盖当前受管理配置，包括已在本机提交的当前文件；只显示文件名，不输出值。这是常见 JSON/TOML 字段检查，不能替代提交前审阅，也不审计既有 Git 历史。
+- 两台电脑的修改发生合并冲突。两边提交和冲突文件都会保留；手动解决后 `git add`、`git commit`，再运行同步。
+- 网络或推送失败。获取远程失败时，本地修改和暂存区保持原样；推送失败时，本地提交保留，可恢复网络后重试。
 
-终端模拟器配置，追求沉浸感的半透明毛玻璃效果。
+安装软件、字体、登录账号与恢复扩展仍按下方说明在各台电脑完成。新增或卸载扩展后，需要显式更新扩展清单；同步配置不会复制已安装的扩展程序或认证数据。
 
-**核心特性：**
-- **主题：** Dracula 深色配色
-- **字体：** CaskaydiaCove Nerd Font Mono 18px（加粗渲染）
-- **背景：** 90% 不透明度 + macOS 玻璃模糊（类似 iOS 的磨砂玻璃效果，可透视桌面壁纸）
-- **光标：** 闪烁方块
+## VS Code 整套恢复
 
-**视觉效果：** 深紫色 Dracula 配色 + 半透明背景 + 毛玻璃模糊，终端窗口与桌面融为一体
+链接覆盖 `User/settings.json`、`keybindings.json`、`locale.json`、`snippets/`，以及 `~/.vscode/custom.css` 和 `~/.local/bin/vim-im-force-abc`。
 
----
+安装当前记录版本的扩展：
 
-## Zed (`/zed/`)
+```bash
+while IFS= read -r extension; do
+  [ -n "$extension" ] || continue
+  code --install-extension "$extension" || exit 1
+done < vscode/extensions.txt
+```
 
-<p align="center">
-  <img src="screenshots/zed-1.png" width="49%" alt="Zed screenshot 1">
-  <img src="screenshots/zed-2.png" width="49%" alt="Zed screenshot 2">
-</p>
+这一步需要已可用的 `code` 命令及对应的扩展分发入口。清单里的 `publisher.name@version` 是采集版本，实际安装是否成功以 CLI 结果为准；没有在本任务中重新安装扩展。
 
-高性能 Rust 编辑器，Vim 模式 + AI 助手。
+另外两项需要在恢复时处理：
 
-### settings.json
+- `vscode/argv.json` 是可移植运行参数模板。将其键合并进本机 `~/.vscode/argv.json`，保留本机已有的 `crash-reporter-id`；该模板不参与软链。
+- 安装 Custom CSS 扩展后，在 VS Code 命令面板执行 `Reload Custom CSS and JS` 并按提示重启。VS Code 更新后可能需要重新启用；本仓库不修改应用安装文件。[扩展说明](https://github.com/be5invis/vscode-custom-css)
 
-**核心特性：**
-- **Vim 模式** — 完整的 Vim 键位支持
-- **主题：** Dark 模式使用 Dracula，Light 模式使用 One Light
-- **字体：** CaskaydiaCove Nerd Font（UI 17px / 编辑器 16px）
-- **图标：** Material Icon Theme
-- **AI 助手：** GLM 模型，面板停靠右侧
-- **终端：** 独立字体（Propo 变体），光标闪烁，3000 行滚动历史
-- **文件树：** 右侧停靠，不自动折叠目录
-- **Tab 栏：** 固定标签独占一行，显示 Git 状态和诊断信息
+CSS 路径使用扩展支持的 `${userHome}`。输入法切换命令先调用 `/bin/sh`，再展开 `$HOME` 找到辅助脚本，兼容 VSCodeVim 对原始可执行路径的检查。辅助脚本保持现有行为：进入或离开 Vim 插入模式时切换到 ABC 输入法。
 
-### keymap.json
+## Zed 整套恢复
 
-| 快捷键 | 模式 | 功能 |
-|---|---|---|
-| `Cmd+S` | Insert | 退出插入模式 + 保存 |
-| `Cmd+I` | Normal | 显示代码补全 |
-| `Alt+P` | Normal | 显示 Hover 信息 |
-| `Alt+Shift+F` | Normal | 格式化代码 |
-| `L` | Project Panel | 打开文件 |
+链接覆盖 `~/.config/zed/` 下的设置、快捷键、代码片段和自定义主题目录。`settings.json` 的 `auto_install_extensions` 记录全部 10 个已安装扩展，启动 Zed 后由其按当前扩展注册表安装。[官方说明](https://zed.dev/docs/reference/all-settings#auto-install-extensions)
 
----
+`zed/extensions.json` 另行保留采集时的版本与来源，供核对；自动安装不保证恢复相同版本。需要特定版本时，在 Zed 扩展面板选择相应版本。
 
-## Claude Code (`/claude-code/`)
+保留现有的 MiniMax、Ollama 与外部 Agent 定义；认证信息仍由本机保存。使用这些功能时，需要相应服务和 Agent 已可用，配置文件本身不代表服务已接通。
 
-<p align="center"><img src="screenshots/claude-code.png" width="700" alt="Claude Code screenshot"></p>
+## Neovim 与 Vim
 
-Anthropic 的 AI 编程助手 CLI 工具配置。
+Neovim 整个配置目录链接到 `~/.config/nvim`，插件代码与下载缓存由 lazy.nvim 管理，不进入仓库。`lazy-lock.json` 保留当前插件提交；需要按锁文件恢复时，在 Neovim 中使用 `:Lazy restore`。
 
-### settings.json
+Neovim 的 `LICENSE` 随原配置保留。`vim/vimrc` 单独链接到 `~/.vimrc`，不依赖 Neovim。
 
-**核心特性：**
-- **语言：** 中文界面
-- **模型：** `opus[1m]`（Claude Opus，1M 上下文窗口）
-- **Effort Level：** medium（平衡速度与质量）
-- **自动记忆：** 开启（跨会话记住项目上下文）
-- **状态栏：** 使用 `@owloops/claude-powerline` 显示实时信息
-- **隐私：** 禁用非必要网络请求（`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`）
+## 本机依赖
 
-### .claude-powerline.json
+- Ghostty、VS Code、Zed、Neovim、Vim 需分别安装。
+- 现有字体为 CaskaydiaCove Nerd Font，Ghostty、Neovide 和自定义 CSS 使用 Mono 变体。
+- VSCodeVim 输入法功能依赖 `macism`。辅助脚本先从 `PATH` 查找，再尝试 Apple Silicon 与 Intel 的 Homebrew 路径；也可用本机环境变量 `DOTFILES_MACISM_BIN` 指定安装位置。
+- Neovide 相关设置与快捷键随 Neovim 保存；使用时另需 Neovide。
+- Zed 的模型、补全服务与外部 Agent 属于可选运行依赖，不自动安装。
 
-状态栏主题配置，Rose Pine 配色 + Capsule 胶囊样式。
+## 日常更新与检查
 
-**显示内容：**
-- 当前目录名
-- Git 分支状态
-- 当前模型名称
-- 上下文使用量（百分比圆点）
-- Token 消耗进度条
+应用配置链接后可直接在应用内维护，扩展清单可重新采集：
 
----
+```bash
+code --list-extensions --show-versions | LC_ALL=C sort > vscode/extensions.txt
+```
 
-## Symlink 映射
+Zed 扩展变更时，同时更新 `zed/extensions.json` 与 `settings.json` 的 `auto_install_extensions`；Neovim 的插件变更随 `lazy-lock.json` 记录。
 
-| 仓库路径 | 目标路径 |
-|---|---|
-| `.vimrc` | `~/.vimrc` |
-| `ghostty/config` | `~/.config/ghostty/config` |
-| `nvim/` | `~/.config/nvim` |
-| `zed/settings.json` | `~/.config/zed/settings.json` |
-| `zed/keymap.json` | `~/.config/zed/keymap.json` |
-| `claude-code/settings.json` | `~/.claude/settings.json` |
-| `claude-code/.claude-powerline.json` | `~/.claude/.claude-powerline.json` |
+```bash
+python3 -m unittest discover -s tests -v
+bash -n link.sh
+bash -n sync.sh
+./link.sh
+./sync.sh status
+git diff --check
+```
 
-## License
-
-MIT
+测试在临时目录运行真实链接脚本，并用本地裸仓库和两个独立克隆验证双向同步、并发修改、冲突与失败恢复，不连接真实 GitHub 仓库，也不改动本机应用配置。

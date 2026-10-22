@@ -1,0 +1,67 @@
+{
+  "Interface": {
+    "prefix": "intf",
+    "body": [
+      "interface ${1:InterfaceName} {",
+      "  ${2:property}: ${3:type};",
+      "}"
+    ]
+  },
+  "Type Alias": {
+    "prefix": "typea",
+    "body": [
+      "type ${1:TypeName} = ${2:TypeDefinition};"
+    ]
+  },
+  "Arrow Function": {
+    "prefix": "af",
+    "body": [
+      "const ${1:funcName} = (${2:args}) => {",
+      "  ${3:// body}",
+      "};"
+    ]
+  },
+  "Async Function": {
+    "prefix": "afn",
+    "body": [
+      "const ${1:funcName} = async (${2:args}) => {",
+      "  try {",
+      "    ${3:// body}",
+      "  } catch (e) {",
+      "    console.error(e);",
+      "  }",
+      "};"
+    ]
+  },
+  "Try Catch": {
+    "prefix": "tryc",
+    "body": [
+      "try {",
+      "  ${1:// code}",
+      "} catch (e) {",
+      "  ${2:// handle error}",
+      "}"
+    ]
+  },
+  "Promise All": {
+    "prefix": "pall",
+    "body": [
+      "const [${1:result1}, ${2:result2}] = await Promise.all([",
+      "  ${3:promise1},",
+      "  ${4:promise2},",
+      "]);"
+    ]
+  },
+  "Import Statement": {
+    "prefix": "imp",
+    "body": [
+      "import { ${2:module} } from '${1:package}';"
+    ]
+  },
+  "Import Default": {
+    "prefix": "impd",
+    "body": [
+      "import ${2:module} from '${1:package}';"
+    ]
+  }
+}
