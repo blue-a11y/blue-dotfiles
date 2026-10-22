@@ -80,7 +80,7 @@ trap 'exit 143' TERM
 
 managed() {
   case "$1" in
-    .gitignore|README.md|links.tsv|link.sh|sync.sh|tests/test_*.py) return 0 ;;
+    .gitignore|AGENTS.md|README.md|links.tsv|link.sh|sync.sh|tests/test_*.py) return 0 ;;
     ghostty/config|ghostty/themes/*|vim/vimrc) return 0 ;;
     vscode/settings.json|vscode/keybindings.json|vscode/locale.json|vscode/argv.json|vscode/custom.css|vscode/extensions.txt|vscode/bin/vim-im-force-abc) return 0 ;;
     vscode/snippets/*.json|vscode/snippets/*.code-snippets) return 0 ;;

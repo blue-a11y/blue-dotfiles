@@ -126,6 +126,13 @@ class SyncTest(unittest.TestCase):
         self.success(self.sync(self.b))
         self.assertEqual((self.b / "vscode/snippets/new.code-snippets").read_bytes(), (folder / "new.code-snippets").read_bytes())
 
+    def test_agent_instructions_are_published_and_received(self):
+        instructions = "# Agent instructions\nRead README.md before changing configuration.\n"
+        (self.a / "AGENTS.md").write_text(instructions)
+        self.success(self.sync(self.a))
+        self.success(self.sync(self.b))
+        self.assertEqual((self.b / "AGENTS.md").read_text(), instructions)
+
     def test_existing_staged_changes_are_preserved_and_not_committed(self):
         (self.a / "vim/vimrc").write_text("set cursorline\n")
         self.git(self.a, "add", "vim/vimrc")

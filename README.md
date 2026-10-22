@@ -2,6 +2,8 @@
 
 blue 的 macOS 编辑器与终端配置。维护 Ghostty、VS Code、Zed、Neovim 和 Vim，两台电脑通过各自的软链和同一 Git 分支双向同步。
 
+Agent 接手时先读 [`AGENTS.md`](AGENTS.md)，其中约定了本机状态检查、首次备份接入、双向同步和故障恢复流程。
+
 ## 同步范围
 
 | 目录 | 内容 |
