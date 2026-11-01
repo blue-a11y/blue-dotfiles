@@ -14,6 +14,7 @@ Agent 接手时先读 [`AGENTS.md`](AGENTS.md)，其中约定了本机状态检�
 | `nvim/` | 当前 LazyVim 配置、插件定义、快捷键、Neovide 设置和 `lazy-lock.json` |
 | `vim/` | 独立 Vim 配置 |
 | `kero/` | Kero 终端的应用偏好 `app.json`（选中会话、侧栏、字号、右侧面板）；`state.json`、窗口状态、会话记录、日志和内置 CLI 属于本机运行数据，不进入仓库 |
+| `claude-code/` | Claude Code 全局规则 `CLAUDE.md`（软链）与偏好基准 `settings.json`（merge 模板，不软链）；API token、`~/.claude.json`、对话历史、会话状态、缓存和插件包不进入仓库 |
 
 配置是个人偏好的快照；不会为了更新说明而主动升级编辑器、修改主题或升级插件。
 
@@ -115,6 +116,12 @@ CSS 路径使用扩展支持的 `${userHome}`。输入法切换命令先调用 `
 Neovim 整个配置目录链接到 `~/.config/nvim`，插件代码与下载缓存由 lazy.nvim 管理，不进入仓库。`lazy-lock.json` 保留当前插件提交；需要按锁文件恢复时，在 Neovim 中使用 `:Lazy restore`。
 
 Neovim 的 `LICENSE` 随原配置保留。`vim/vimrc` 单独链接到 `~/.vimrc`，不依赖 Neovim。
+
+## Claude Code
+
+`claude-code/CLAUDE.md` 软链到 `~/.claude/CLAUDE.md`，是所有项目共享的全局规则；项目级规则放在各项目根目录，不进仓库。
+
+`claude-code/settings.json` 是偏好基准模板，**不参与软链**。接入新机器时将其各键合并进本机 `~/.claude/settings.json`：保留本机已有的 `env.ANTHROPIC_AUTH_TOKEN` 等凭据字段，其余偏好（模型路由、语言、视图、权限模式等）以模板为准。模板不含任何 API token；凭据由 cc-switch 等本机工具单独管理，注意 cc-switch 重写 settings.json 时可能覆盖合并结果。`~/.claude.json`、`history.jsonl`、会话与项目数据、缓存、插件包和 `settings.local.json` 属于本机状态，不同步。
 
 ## 本机依赖
 
