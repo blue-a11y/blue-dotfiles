@@ -4,7 +4,7 @@
 
 ## 项目与入口
 
-- 维护 Ghostty、VS Code、Zed、Neovim 和 Vim 的可移植配置，面向 macOS；脚本兼容系统 Bash 3.2。
+- 维护 Ghostty、VS Code、Zed、Neovim、Vim 和 Kero 的可移植配置，面向 macOS；脚本兼容系统 Bash 3.2。
 - 每台电脑有自己的 Git 副本，应用配置通过软链连接本机副本，通过共享的 `origin/main` 交换修改。用户名和仓库绝对路径可以不同。
 - `README.md`：软件依赖、各应用恢复方式与使用说明。
 - `links.tsv`：应用、本仓库源文件、本机目标路径的唯一映射；目标路径相对于当前机器的 `$HOME`。
@@ -67,6 +67,7 @@ git branch -vv
 - VSCodeVim：输入法命令通过 `/bin/sh` 展开 `$HOME` 后调用辅助脚本。保留可移植路径及 `PATH`、Apple Silicon/Intel Homebrew、`DOTFILES_MACISM_BIN` 的查找方式，不写死另一台电脑的路径。只有查询当前输入法不代表实际切换已验证。
 - Zed：扩展变更同步维护 `zed/extensions.json` 与设置中的 `auto_install_extensions`。后者按当前注册表安装，不保证采集版本；模型与外部 Agent 的凭据、安装和可用性由本机单独处理。
 - Neovim：配置目录整体链接；插件下载与运行缓存留在本机。维护插件定义及 `lazy-lock.json`，需要按锁恢复时使用 `:Lazy restore`。Vim 的 `vim/vimrc` 独立维护。
+- Kero：只同步 `kero/app.json`（应用偏好快照）。`state.json`、窗口状态、会话记录、日志与内置 CLI 属于本机运行数据，不进仓库；`selected` 字段引用的会话 ID 在另一台电脑上不存在，由 Kero 自行回退。
 - 不同步账号凭据、环境密钥、登录状态、聊天与工作区数据库、缓存、已安装扩展包、软件二进制和本机备份。不要把个人服务地址、用户名路径或认证信息原样复制进公开仓库。脚本的常见 JSON/TOML 字段检查不能替代人工审阅或历史秘密审计。
 
 ## 修改仓库与验证

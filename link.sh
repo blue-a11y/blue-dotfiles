@@ -11,7 +11,7 @@ usage() {
   cat <<'HELP'
 Usage: ./link.sh [--apply | --dry-run] [--home ABSOLUTE_PATH] [APPLICATION ...]
 
-Applications: ghostty vscode zed nvim vim (neovim is an alias for nvim)
+Applications: ghostty vscode zed nvim vim kero (neovim is an alias for nvim)
 Without a selection, all applications are included. Preview is the default.
 --apply backs up existing targets before creating links. No extensions are installed.
 HELP
@@ -32,7 +32,7 @@ while [ "$#" -gt 0 ]; do
       shift
       ;;
     -h|--help) usage; exit 0 ;;
-    ghostty|vscode|zed|nvim|vim) SELECTED+=("$1") ;;
+    ghostty|vscode|zed|nvim|vim|kero) SELECTED+=("$1") ;;
     neovim) SELECTED+=("nvim") ;;
     *) fail "Unknown application or option: $1" ;;
   esac

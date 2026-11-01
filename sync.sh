@@ -86,6 +86,7 @@ managed() {
     vscode/snippets/*.json|vscode/snippets/*.code-snippets) return 0 ;;
     zed/settings.json|zed/keymap.json|zed/tasks.json|zed/extensions.json|zed/snippets/*.json|zed/themes/*.json) return 0 ;;
     nvim/*.lua|nvim/*.json|nvim/*.toml|nvim/LICENSE|nvim/README.md|nvim/.gitignore) return 0 ;;
+    kero/app.json) return 0 ;;
     *) return 1 ;;
   esac
 }
