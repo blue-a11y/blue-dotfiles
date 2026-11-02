@@ -9,3 +9,4 @@ zed	zed/snippets	.config/zed/snippets
 zed	zed/themes	.config/zed/themes
 nvim	nvim	.config/nvim
 vim	vim/vimrc	.vimrc
+claude-code	claude-code/CLAUDE.md	.claude/CLAUDE.md

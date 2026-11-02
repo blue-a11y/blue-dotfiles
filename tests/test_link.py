@@ -18,7 +18,7 @@ class LinkTest(unittest.TestCase):
         self.root = Path(self.temporary.name)
         self.repo = self.root / "repository with spaces"
         self.repo.mkdir()
-        for name in ["ghostty", "vscode", "zed", "nvim", "vim"]:
+        for name in ["ghostty", "vscode", "zed", "nvim", "vim", "kero", "claude-code"]:
             shutil.copytree(REPO / name, self.repo / name)
         shutil.copy2(REPO / "links.tsv", self.repo / "links.tsv")
         if (REPO / "link.sh").exists():
