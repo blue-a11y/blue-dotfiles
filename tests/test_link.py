@@ -59,18 +59,18 @@ class LinkTest(unittest.TestCase):
         ghostty = self.home / ".config/ghostty/config"
         ghostty.parent.mkdir(parents=True)
         ghostty.write_text("old ghostty\n")
-        snippets = self.home / ".config/zed/snippets"
+        snippets = self.home / "Library/Application Support/Code/User/snippets"
         snippets.mkdir(parents=True)
         (snippets / "keep.json").write_text('{"keep": true}\n')
         nvim = self.home / ".config/nvim"
         nvim.symlink_to("missing-old-configuration")
 
-        self.check_success(self.run_link("--apply", "ghostty", "zed", "nvim"))
+        self.check_success(self.run_link("--apply", "ghostty", "vscode", "nvim"))
         backups = self.backup_sessions()
         self.assertEqual(len(backups), 1)
         backup = backups[0]
         self.assertEqual((backup / ".config/ghostty/config").read_text(), "old ghostty\n")
-        self.assertEqual((backup / ".config/zed/snippets/keep.json").read_text(), '{"keep": true}\n')
+        self.assertEqual((backup / "Library/Application Support/Code/User/snippets/keep.json").read_text(), '{"keep": true}\n')
         self.assertTrue((backup / ".config/nvim").is_symlink())
         self.assertEqual(os.readlink(backup / ".config/nvim"), "missing-old-configuration")
 
@@ -93,7 +93,7 @@ class LinkTest(unittest.TestCase):
         target = self.home / ".config/ghostty/config"
         target.parent.mkdir(parents=True)
         target.write_text("must remain unchanged\n")
-        (self.repo / "vscode/locale.json").unlink()
+        (self.repo / "vscode/settings.json").unlink()
         result = self.run_link("--apply", "ghostty", "vscode")
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("Missing source", result.stderr)

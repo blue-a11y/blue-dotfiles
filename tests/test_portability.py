@@ -1,5 +1,6 @@
-"""Narrow check for the input-method helper's macism resolution before shell execution."""
+"""Narrow check for VSCodeVim's executable-path validation before shell execution."""
 
+import json
 import os
 from pathlib import Path
 import subprocess
@@ -11,6 +12,17 @@ REPO = Path(__file__).resolve().parents[1]
 
 
 class PortabilityTest(unittest.TestCase):
+    def test_input_method_command_has_a_resolvable_executable(self):
+        line = next(
+            line for line in (REPO / "vscode/settings.json").read_text().splitlines()
+            if '"vim.autoSwitchInputMethod.switchIMCmd"' in line
+        )
+        setting = json.loads("{" + line.strip().rstrip(",") + "}")
+        command = setting["vim.autoSwitchInputMethod.switchIMCmd"]
+        # VSCodeVim checks this raw token with workspace.fs.stat(Uri.file(token)).
+        executable = Path(command.split(" ")[0])
+        self.assertTrue(executable.is_absolute(), "The extension does not expand ~")
+        self.assertTrue(executable.is_file())
 
     def test_input_method_helper_supports_a_machine_local_binary(self):
         with tempfile.TemporaryDirectory(prefix="dotfiles-input-method-") as folder:
