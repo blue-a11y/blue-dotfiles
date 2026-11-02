@@ -30,10 +30,10 @@ class SyncTest(unittest.TestCase):
         (seed / "vim").mkdir()
         (seed / "vim/vimrc").write_text('set number\n" original\n')
         (seed / "vscode").mkdir()
-        (seed / "vscode/settings.json").write_text('{"editor.fontSize": 14}\n')
+        (seed / "vscode/locale.json").write_text('{"locale": "zh-cn"}\n')
         (seed / "links.tsv").write_text(
             "vim\tvim/vimrc\t.vimrc\n"
-            "vscode\tvscode/settings.json\tLibrary/Application Support/Code/User/settings.json\n"
+            "vscode\tvscode/locale.json\tLibrary/Application Support/Code/User/locale.json\n"
         )
         self.git(seed, "add", ".")
         self.git(seed, "commit", "-m", "test baseline")
@@ -86,22 +86,22 @@ class SyncTest(unittest.TestCase):
         self.success(self.sync(self.a))
         self.success(self.sync(self.b))
         self.assertEqual((self.home_b / ".vimrc").read_text(), "set number\nset cursorline\n")
-        (self.home_b / "Library/Application Support/Code/User/settings.json").write_text('{"editor.fontSize": 18}\n')
+        (self.home_b / "Library/Application Support/Code/User/locale.json").write_text('{"locale": "en"}\n')
         self.success(self.sync(self.b))
         self.success(self.sync(self.a))
-        self.assertEqual(json.loads((self.home_a / "Library/Application Support/Code/User/settings.json").read_text())["editor.fontSize"], 18)
+        self.assertEqual(json.loads((self.home_a / "Library/Application Support/Code/User/locale.json").read_text())["locale"], "en")
         self.assertEqual(self.git(self.a, "status", "--porcelain").stdout, "")
         self.assertEqual(self.git(self.b, "status", "--porcelain").stdout, "")
 
     def test_concurrent_changes_to_different_files_are_combined(self):
         (self.a / "vim/vimrc").write_text("set cursorline\n")
-        (self.b / "vscode/settings.json").write_text('{"editor.fontSize": 20}\n')
+        (self.b / "vscode/locale.json").write_text('{"locale": "zh-tw"}\n')
         self.success(self.sync(self.a))
         self.success(self.sync(self.b))
         self.success(self.sync(self.a))
         for checkout in [self.a, self.b]:
             self.assertEqual((checkout / "vim/vimrc").read_text(), "set cursorline\n")
-            self.assertEqual(json.loads((checkout / "vscode/settings.json").read_text())["editor.fontSize"], 20)
+            self.assertEqual(json.loads((checkout / "vscode/locale.json").read_text())["locale"], "zh-tw")
 
     def test_conflicting_changes_preserve_both_versions_and_stop_push(self):
         (self.a / "vim/vimrc").write_text("set number\nset shiftwidth=2\n")
@@ -118,13 +118,13 @@ class SyncTest(unittest.TestCase):
         self.assertEqual(self.git(self.remote, "rev-parse", "main").stdout, published)
         self.assertNotEqual(self.sync(self.b).returncode, 0)
 
-    def test_new_managed_snippet_is_published_and_received(self):
-        folder = self.a / "vscode/snippets"
-        folder.mkdir()
-        (folder / "new.code-snippets").write_text('{"example": {"prefix": "example", "body": "hello"}}\n')
+    def test_new_managed_theme_is_published_and_received(self):
+        folder = self.a / "ghostty/themes"
+        folder.mkdir(parents=True)
+        (folder / "new-theme.conf").write_text("background = #1a1b26\n")
         self.success(self.sync(self.a))
         self.success(self.sync(self.b))
-        self.assertEqual((self.b / "vscode/snippets/new.code-snippets").read_bytes(), (folder / "new.code-snippets").read_bytes())
+        self.assertEqual((self.b / "ghostty/themes/new-theme.conf").read_bytes(), (folder / "new-theme.conf").read_bytes())
 
     def test_agent_instructions_are_published_and_received(self):
         instructions = "# Agent instructions\nRead README.md before changing configuration.\n"
@@ -153,7 +153,7 @@ class SyncTest(unittest.TestCase):
 
     def test_nonempty_credential_field_blocks_without_printing_value(self):
         sentinel = "test-only-placeholder-not-a-real-credential"
-        (self.a / "vscode/settings.json").write_text(json.dumps({"api_key": sentinel}))
+        (self.a / "vscode/locale.json").write_text(json.dumps({"api_key": sentinel}))
         head = self.git(self.a, "rev-parse", "HEAD").stdout
         result = self.sync(self.a)
         self.assertNotEqual(result.returncode, 0)
@@ -163,7 +163,7 @@ class SyncTest(unittest.TestCase):
         self.assertEqual(self.git(self.a, "diff", "--cached", "--name-only").stdout, "")
 
     def test_normal_max_tokens_setting_is_not_treated_as_a_secret(self):
-        (self.a / "vscode/settings.json").write_text('{"max_tokens": 4096}\n')
+        (self.a / "vscode/locale.json").write_text('{"max_tokens": 4096}\n')
         self.success(self.sync(self.a))
 
     def test_missing_upstream_is_rejected_before_commit(self):
@@ -238,8 +238,8 @@ class SyncTest(unittest.TestCase):
         self.assertEqual(self.git(self.a, "diff", "--cached", "--name-only").stdout, "")
 
     def test_current_manually_committed_credentials_are_not_pushed(self):
-        (self.a / "vscode/settings.json").write_text('{"api_key": "test-only-placeholder"}\n')
-        self.git(self.a, "add", "vscode/settings.json")
+        (self.a / "vscode/locale.json").write_text('{"api_key": "test-only-placeholder"}\n')
+        self.git(self.a, "add", "vscode/locale.json")
         self.git(self.a, "commit", "-m", "local private configuration")
         before = self.git(self.remote, "rev-parse", "main").stdout
         result = self.sync(self.a)

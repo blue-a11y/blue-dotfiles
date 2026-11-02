@@ -9,7 +9,7 @@ Agent 接手时先读 [`AGENTS.md`](AGENTS.md)，其中约定了本机状态检�
 | 目录 | 内容 |
 | --- | --- |
 | `ghostty/` | Ghostty 主配置：Dracula、字体、光标、透明度、窗口和滚动设置 |
-| `vscode/` | 设置、快捷键、2 份代码片段、语言、自定义 CSS、输入法辅助脚本、运行参数模板、52 个扩展及版本 |
+| `vscode/` | 语言、自定义 CSS、输入法辅助脚本、运行参数模板、52 个扩展及版本 |
 | `zed/` | 设置、快捷键、3 份代码片段、3 个本地主题、10 个扩展及版本 |
 | `nvim/` | 当前 LazyVim 配置、插件定义、快捷键、Neovide 设置和 `lazy-lock.json` |
 | `vim/` | 独立 Vim 配置 |
@@ -17,6 +17,8 @@ Agent 接手时先读 [`AGENTS.md`](AGENTS.md)，其中约定了本机状态检�
 配置是个人偏好的快照；不会为了更新说明而主动升级编辑器、修改主题或升级插件。
 
 账号凭据、登录状态、聊天与工作区数据库、缓存、安装后的扩展包、旧配置备份不进入仓库。VS Code 当前没有额外用户 Profile，MCP 文件为空，因此没有额外的有效配置可收集。Zed 的提示词数据库属于本地数据，未作为代码片段同步。
+
+VS Code 的 `settings.json`、`keybindings.json` 和代码片段由 VS Code 自带的 Settings Sync 在登录账号下同步，不进入本仓库，也不对它们建软链——避免仓库软链与云端同步争夺同一文件。仓库只保留 Settings Sync 不覆盖的部分：语言（`locale.json`）、自定义 CSS、输入法辅助脚本、运行参数模板和带版本的扩展清单。
 
 ## 链接配置
 
@@ -81,7 +83,7 @@ cd blue-dotfiles
 
 ## VS Code 整套恢复
 
-链接覆盖 `User/settings.json`、`keybindings.json`、`locale.json`、`snippets/`，以及 `~/.vscode/custom.css` 和 `~/.local/bin/vim-im-force-abc`。
+链接覆盖 `User/locale.json`、`~/.vscode/custom.css` 和 `~/.local/bin/vim-im-force-abc`。`settings.json`、`keybindings.json` 和代码片段登录同一账号后由 Settings Sync 自动恢复。
 
 安装当前记录版本的扩展：
 
