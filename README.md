@@ -9,7 +9,7 @@ Agent 接手时先读 [`AGENTS.md`](AGENTS.md)，其中约定了本机状态检�
 | 目录 | 内容 |
 | --- | --- |
 | `ghostty/` | Ghostty 主配置：Dracula、字体、光标、透明度、窗口和滚动设置 |
-| `vscode/` | 设置、快捷键、2 份代码片段、语言、自定义 CSS、输入法辅助脚本、运行参数模板、52 个扩展及版本 |
+| `vscode/` | 自定义 CSS、输入法辅助脚本、运行参数模板；设置、快捷键、语言、代码片段与扩展由 VS Code 云端同步（Settings Sync）接管，不进仓库 |
 | `zed/` | 设置、快捷键、3 份代码片段、3 个本地主题、10 个扩展及版本 |
 | `nvim/` | 当前 LazyVim 配置、插件定义、快捷键、Neovide 设置和 `lazy-lock.json` |
 | `vim/` | 独立 Vim 配置 |
@@ -81,20 +81,11 @@ cd blue-dotfiles
 
 安装软件、字体、登录账号与恢复扩展仍按下方说明在各台电脑完成。新增或卸载扩展后，需要显式更新扩展清单；同步配置不会复制已安装的扩展程序或认证数据。
 
-## VS Code 整套恢复
+## VS Code 恢复
 
-链接覆盖 `User/settings.json`、`keybindings.json`、`locale.json`、`snippets/`，以及 `~/.vscode/custom.css` 和 `~/.local/bin/vim-im-force-abc`。
+VS Code 自带云端同步（Settings Sync）：设置、快捷键、语言、代码片段与扩展由它接管，不进仓库。新机器登录同一账号并开启同步后，这些内容自动恢复。
 
-安装当前记录版本的扩展：
-
-```bash
-while IFS= read -r extension; do
-  [ -n "$extension" ] || continue
-  code --install-extension "$extension" || exit 1
-done < vscode/extensions.txt
-```
-
-这一步需要已可用的 `code` 命令及对应的扩展分发入口。清单里的 `publisher.name@version` 是采集版本，实际安装是否成功以 CLI 结果为准；没有在本任务中重新安装扩展。
+链接只覆盖云同步覆盖不到的两项：`~/.vscode/custom.css` 和 `~/.local/bin/vim-im-force-abc`。
 
 另外两项需要在恢复时处理：
 
@@ -137,13 +128,7 @@ Neovim 的 `LICENSE` 随原配置保留。`vim/vimrc` 单独链接到 `~/.vimrc`
 
 ## 日常更新与检查
 
-应用配置链接后可直接在应用内维护，扩展清单可重新采集：
-
-```bash
-code --list-extensions --show-versions | LC_ALL=C sort > vscode/extensions.txt
-```
-
-Zed 扩展变更时，同时更新 `zed/extensions.json` 与 `settings.json` 的 `auto_install_extensions`；Neovim 的插件变更随 `lazy-lock.json` 记录。
+应用配置链接后可直接在应用内维护。VS Code 的设置、快捷键、代码片段与扩展变更由其云端同步接管，不需要改仓库；Zed 扩展变更时，同时更新 `zed/extensions.json` 与 `settings.json` 的 `auto_install_extensions`；Neovim 的插件变更随 `lazy-lock.json` 记录。
 
 ```bash
 python3 -m unittest discover -s tests -v

@@ -1,7 +1,0 @@
-{
-	"Console Log": {
-		"prefix": "logg",
-		"body": "console.log('$1===>', $1);",
-		"description": "快速插入 console.log"
-	}
-}

@@ -2,10 +2,6 @@
 ghostty	ghostty/config	.config/ghostty/config
 vscode	vscode/bin/vim-im-force-abc	.local/bin/vim-im-force-abc
 vscode	vscode/custom.css	.vscode/custom.css
-vscode	vscode/settings.json	Library/Application Support/Code/User/settings.json
-vscode	vscode/keybindings.json	Library/Application Support/Code/User/keybindings.json
-vscode	vscode/locale.json	Library/Application Support/Code/User/locale.json
-vscode	vscode/snippets	Library/Application Support/Code/User/snippets
 zed	zed/settings.json	.config/zed/settings.json
 zed	zed/keymap.json	.config/zed/keymap.json
 zed	zed/snippets	.config/zed/snippets

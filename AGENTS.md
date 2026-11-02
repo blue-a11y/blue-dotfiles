@@ -63,7 +63,7 @@ git branch -vv
 
 ## 各应用的维护边界
 
-- VS Code：设置、快捷键、语言、代码片段、自定义 CSS 与输入法辅助脚本走链接。`vscode/argv.json` 是模板，需要按键合并到本机文件，保留本机 `crash-reporter-id`。扩展清单可用 `code --list-extensions --show-versions | LC_ALL=C sort > vscode/extensions.txt` 更新；安装按 README 执行并核验结果。
+- VS Code：设置、快捷键、语言、代码片段与扩展由 VS Code 云端同步（Settings Sync）接管，不进仓库；自定义 CSS 与输入法辅助脚本走链接。`vscode/argv.json` 是模板，需要按键合并到本机文件，保留本机 `crash-reporter-id`。本机设置的修改不通过本仓库同步，改动交给 VS Code 云端同步。
 - VSCodeVim：输入法命令通过 `/bin/sh` 展开 `$HOME` 后调用辅助脚本。保留可移植路径及 `PATH`、Apple Silicon/Intel Homebrew、`DOTFILES_MACISM_BIN` 的查找方式，不写死另一台电脑的路径。只有查询当前输入法不代表实际切换已验证。
 - Zed：扩展变更同步维护 `zed/extensions.json` 与设置中的 `auto_install_extensions`。后者按当前注册表安装，不保证采集版本；模型与外部 Agent 的凭据、安装和可用性由本机单独处理。
 - Neovim：配置目录整体链接；插件下载与运行缓存留在本机。维护插件定义及 `lazy-lock.json`，需要按锁恢复时使用 `:Lazy restore`。Vim 的 `vim/vimrc` 独立维护。
