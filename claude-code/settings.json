@@ -17,12 +17,12 @@
     "CLAUDE_CODE_SUBAGENT_MODEL": "glm-5.3-flash"
   },
   "permissions": {
-    "defaultMode": "auto"
+    "defaultMode": "bypassPermissions"
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true
   },
-  "viewMode": "focus",
+  "viewMode": "default",
   "language": "Chinese",
   "tui": "fullscreen",
   "showThinkingSummaries": true,
